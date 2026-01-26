@@ -1,0 +1,43 @@
+<% layout("/layouts/boilerplate") %>
+
+<h3 class="mb-4 mt-2">
+   Welcome, <%= currUser.username %>
+</h3>
+
+<div class="row g-4">
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm p-3">
+      <h6>Total Bookings</h6>
+      <h2 class="text-primary"><%= totalBookings %></h2>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm p-3">
+      <h6>Pending</h6>
+      <h2 class="text-warning"><%= pendingBookings %></h2>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm p-3">
+      <h6>Confirmed</h6>
+      <h2 class="text-success"><%= confirmedBookings %></h2>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm p-3">
+      <h6>Cancel Requested</h6>
+      <h2 class="text-info"><%= cancelRequested %></h2>
+    </div>
+  </div>
+
+</div>
+
+<hr class="my-4">
+
+<a href="/my-bookings" class="btn btn-outline-primary mb-2">
+  📄 View My Bookings
+</a>

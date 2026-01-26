@@ -1,0 +1,93 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row justify-content-center mt-3">
+  <div class="col-lg-6 col-md-8 col-sm-11">
+
+    <h2 class="mb-3">Edit Travel Package</h2>
+
+    <form action="/listings/<%= listing._id %>?_method=PUT" method="POST" class="needs-validation" enctype="multipart/form-data">
+
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input id="title" type="text" name="listing[title]" value="<%= listing.title %>" class="form-control" required>
+        <div class="valid-feedback">title looks good</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="destination" class="form-label">Destination</label>
+        <input id="destination" type="text" name="listing[destination]" value="<%= listing.destination %>" class="form-control" required>
+        <div class="invalid-feedback">enter destination</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" name="listing[description]" rows="4" class="form-control" required><%= listing.description %></textarea>
+        <div class="invalid-feedback">please enter short description</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image Upload</label>
+        <input id="image" type="file" name="listing[image]" value="<%= listing.image %>" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Price (₹)</label>
+        <input id="price" type="number" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
+         <div class="invalid-feedback">please enter valid price</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="startLocation" class="form-label">Start Location</label>
+        <input id="startLocation" type="text" name="listing[startLocation]" value="<%= listing.startLocation %>" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="endLocation" class="form-label">End Location</label>
+        <input id="endLocation" type="text" name="listing[endLocation]" value="<%= listing.endLocation %>" class="form-control" required>
+      </div>
+
+    <div class="mb-3">
+  <label for="travelMode" class="form-label">Travel Mode</label>
+  <select id="travelMode" name="listing[travelMode]" class="form-select">
+    <option value="Bus" <%= listing.travelMode === "Bus" ? "selected" : "" %>>Bus</option>
+    <option value="Train" <%= listing.travelMode === "Train" ? "selected" : "" %>>Train</option>
+    <option value="Flight" <%= listing.travelMode === "Flight" ? "selected" : "" %>>Flight</option>
+  </select>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Category</label>
+  <select name="listing[category]" class="form-select">
+    <option value="Pilgrimage" <%= listing.category === "Pilgrimage" ? "selected" : "" %>>Pilgrimage</option>
+    <option value="Winter" <%= listing.category === "Winter" ? "selected" : "" %>>Winter</option>
+    <option value="Beach" <%= listing.category === "Beach" ? "selected" : "" %>>Beach</option>
+    <option value="Adventure" <%= listing.category === "Adventure" ? "selected" : "" %>>Adventure</option>
+    <option value="City" <%= listing.category === "City" ? "selected" : "" %>>City</option>
+    <option value="Family" <%= listing.category === "Family" ? "selected" : "" %>>Family</option>
+  </select>
+</div>
+
+
+      <div class="mb-3">
+        <label for="facilities" class="form-label">Facilities (comma separated)</label>
+        <input id="facilities" type="text" name="listing[facilities]" value="<%= listing.facilities.join(', ') %>" class="form-control">
+      </div>
+
+      <div class="mb-3">
+        <label for="totalSeats" class="form-label">Total Seats</label>
+        <input id="totalSeats" type="number" name="listing[totalSeats]" value="<%= listing.totalSeats %>" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="availableSeats" class="form-label">Available Seats</label>
+        <input id="availableSeats" type="number" name="listing[availableSeats]" value="<%= listing.availableSeats %>" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Update Package</button>
+      <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary ms-2">Back</a>
+
+    </form>
+
+  </div>
+</div>
+ <script src="/js/script.js"></script>

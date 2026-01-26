@@ -1,0 +1,93 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row justify-content-center mt-3">
+    <div class="col-lg-6 col-md-8 col-sm-11">
+      <h3 class="mb-3">Add New Travel Package</h3>
+<form action="/listings" method="POST"  class="needs-validation" novalidate enctype="multipart/form-data">
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" id="title" name="listing[title]" class="form-control" placeholder="Enter title" required>
+  <div class="valid-feedback">Looks good!</div>
+<div class="invalid-feedback">Please enter title.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="destination" class="form-label">Destination</label>
+    <input type="text" id="destination" name="listing[destination]" class="form-control" placeholder="Enter destination" required>
+    <div class="invalid-feedback">enter destination</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea id="description" name="listing[description]" rows="4" class="form-control" placeholder="Enter description" required></textarea>
+    <div class="valid-feedback">please enter short description</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="image" class="form-label">Image Upload</label>
+    <input type="file" id="image" name="listing[image]" class="form-control" placeholder="Paste image link">
+  </div>
+
+  <div class="mb-3">
+    <label for="price" class="form-label">Price (₹)</label>
+    <input  id="price" name="listing[price]" class="form-control" placeholder="Enter price" required>
+    <div class="invalid-feedback">please enter valid price</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="startLocation" class="form-label">Start Location</label>
+    <input type="text" id="startLocation" name="listing[startLocation]" class="form-control" placeholder="Enter start location" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="endLocation" class="form-label">End Location</label>
+    <input type="text" id="endLocation" name="listing[endLocation]" class="form-control" placeholder="Enter end location" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="travelMode" class="form-label">Travel Mode</label>
+    <select id="travelMode" name="listing[travelMode]" class="form-select">
+      <option value="Bus">Bus</option>
+      <option value="Train">Train</option>
+      <option value="Flight">Flight</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+  <label for="category" class="form-label">Category</label>
+  <select id="category" name="listing[category]" class="form-select" required>
+    <option value="Pilgrimage">Pilgrimage</option>
+    <option value="Winter">Winter</option>
+    <option value="Beach">Beach</option>
+    <option value="Adventure">Adventure</option>
+    <option value="City">City</option>
+    <option value="Family">Family</option>
+  </select>
+</div>
+
+
+
+
+
+  <div class="mb-3">
+    <label for="facilities" class="form-label">Facilities (comma separated)</label>
+    <input type="text" id="facilities" name="listing[facilities]" class="form-control" placeholder="Hotel, Meals, Darshan">
+  </div>
+
+  <div class="mb-3">
+    <label for="totalSeats" class="form-label">Total Seats</label>
+    <input type="number" id="totalSeats" name="listing[totalSeats]" class="form-control" min="1" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="availableSeats" class="form-label">Available Seats</label>
+   <input type="number" id="availableSeats" name="listing[availableSeats]" class="form-control" min="0" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Add Package</button>
+  <a href="/listings" class="btn btn-outline-secondary ms-2">Back</a>
+
+</form>
+</div>
+</div>

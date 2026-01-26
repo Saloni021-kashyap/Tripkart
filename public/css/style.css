@@ -1,0 +1,256 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+.explore-tagline{
+  color:  #0f172a; 
+
+}
+
+.navbar {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  background-color: #8a8a8a !important; /* jo tum use kar rahi ho */
+}
+
+.navbar-brand {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 12px;           /* links gap */
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* Hover effect */
+.navbar-nav .nav-link:hover {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Active link highlight */
+.navbar-nav .nav-link.active {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Mobile view spacing */
+@media (max-width: 768px) {
+  .navbar-nav .nav-link {
+    margin-left: 0;
+    margin-top: 8px;
+    width: fit-content;
+  }
+}
+
+/* Show page image fix */
+.show-img{
+  height: 380px;
+  object-fit: cover;
+}
+
+
+
+ /* footer */
+.footer {
+  margin-top: auto;
+}
+
+/* ===== Footer Styling ===== */
+
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.footer-brand {
+  color: #ffc107;            /* Bootstrap warning yellow */
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.footer-brand:hover {
+  text-decoration: underline;
+  color: #ffca2c;
+}
+
+.footer-icon {
+  font-size: 22px;
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+.footer-icon:hover {
+  color: #ffc107;
+  transform: scale(1.2);
+}
+
+
+
+
+
+/* ===== Listing Cards Styling ===== */
+
+.card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: 0.3s;
+}
+
+/* hover effect */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+/* card image */
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+}
+
+/* card body spacing */
+.card-body {
+  padding: 16px;
+}
+
+/* title */
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* price text */
+.card-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0d6efd;
+  margin-bottom: 12px;
+}
+
+/* button */
+.card .btn {
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-weight: 600;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.custom-navbar {
+  background: linear-gradient(90deg, #1e293b, #0f172a);
+  padding: 10px 20px;
+}
+
+.custom-navbar .navbar-brand {
+  color: #facc15;
+  font-size: 22px;
+  letter-spacing: 0.5px;
+}
+
+.custom-navbar .navbar-brand:hover {
+  color: #fde047;
+}
+
+.custom-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Register button */
+.custom-navbar .btn-register {
+  background: #22c55e;
+  color: #0f172a !important;
+  font-weight: 600;
+}
+
+.custom-navbar .btn-register:hover {
+  background: #16a34a;
+  color: white !important;
+}
+
+/* Logout button */
+.custom-navbar .btn-logout {
+  background: #ef4444;
+  color: white !important;
+  font-weight: 600;
+}
+
+.custom-navbar .btn-logout:hover {
+  background: #dc2626;
+}
+
+/* Mobile spacing */
+@media (max-width: 768px) {
+  .custom-navbar .nav-link {
+    margin-top: 8px;
+  }
+}
+
+
+
+/* ========== NAVBAR SEARCH ========== */
+
+.search-form {
+  align-items: center;
+}
+
+.search-input {
+  width: 180px;
+  border-radius: 20px;
+  padding-left: 12px;
+}
+
+.btn-search {
+  background: #facc15;
+  border-radius: 50%;
+  font-weight: bold;
+  border: none;
+}
+
+.btn-search:hover {
+  background: #fde047;
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    width: 100%;
+    margin-top: 8px;
+  }
+}
+
+/* Remove bullet from navbar items */
+.nav-search {
+  list-style: none;
+}
+
+
+

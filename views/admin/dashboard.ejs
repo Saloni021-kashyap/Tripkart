@@ -1,0 +1,42 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2 class="mb-4 mt-3 offset-4"> Admin Dashboard</h2>
+
+<div class="row g-4">
+
+  <div class="col-md-3">
+    <div class="card text-center p-3 shadow-sm">
+      <h5>Total Listings</h5>
+      <h2 class="text-primary"><%= totalListings %></h2>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center p-3 shadow-sm">
+      <h5>Total Bookings</h5>
+      <h2 class="text-success"><%= totalBookings %></h2>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center p-3 shadow-sm">
+      <h5>Pending Bookings</h5>
+      <h2 class="text-warning"><%= pendingBookings %></h2>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center p-3 shadow-sm">
+      <h5>Confirmed</h5>
+      <h2 class="text-info"><%= confirmedBookings %></h2>
+    </div>
+  </div>
+
+</div>
+
+<hr class="my-4">
+
+<div class="d-flex gap-3">
+  <a href="/listings" class="btn btn-outline-primary mb-3">📦 Manage Listings</a>
+  <a href="/bookings" class="btn btn-outline-success mb-3">📑 View Bookings</a>
+</div>

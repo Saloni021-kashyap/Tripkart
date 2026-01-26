@@ -1,0 +1,177 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-4">
+
+  <div class="row g-4">
+
+    <!-- ================= LEFT SIDE : LISTING DETAILS ================= -->
+    <div class="col-lg-8">
+
+      <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+
+        <!-- Image -->
+        <img
+          src="<%= listing.image %>"
+          class="img-fluid"
+          style="height: 320px; object-fit: cover;"
+          alt="listing_image"
+        >
+
+        <div class="card-body p-4">
+
+          <!-- Title -->
+          <h2 class="fw-bold mb-1"><%= listing.title %></h2>
+
+          <!-- Destination -->
+          <p class="text-muted mb-3">
+            <i class="bi bi-geo-alt-fill"></i> <%= listing.destination %>
+          </p>
+
+          <!-- Badges -->
+          <div class="d-flex flex-wrap gap-2 mb-3">
+
+            <span class="badge rounded-pill bg-info text-dark px-3 py-2">
+              <i class="bi bi-truck-front-fill"></i> <%= listing.travelMode %>
+            </span>
+
+            <span class="badge rounded-pill bg-success px-3 py-2">
+              ₹ <%= listing.price %> / person
+            </span>
+
+            <span class="badge rounded-pill bg-warning text-dark px-3 py-2">
+              Seats Left: <%= listing.availableSeats %> / <%= listing.totalSeats %>
+            </span>
+
+            <span class="badge rounded-pill <%= listing.isActive ? 'bg-primary' : 'bg-secondary' %> px-3 py-2">
+              <%= listing.isActive ? "Available" : "Not Available" %>
+            </span>
+
+          </div>
+
+          <!-- Description -->
+          <h5 class="fw-semibold mt-3">Description</h5>
+          <p class="text-secondary"><%= listing.description %></p>
+
+          <!-- Route Info -->
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <p class="mb-1 fw-semibold">Start Location</p>
+              <p class="text-muted"><%= listing.startLocation %></p>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1 fw-semibold">End Location</p>
+              <p class="text-muted"><%= listing.endLocation %></p>
+            </div>
+          </div>
+
+          <!-- Facilities -->
+          <h5 class="fw-semibold mt-3">Facilities</h5>
+          <% if (listing.facilities && listing.facilities.length) { %>
+            <div class="d-flex flex-wrap gap-2">
+              <% listing.facilities.forEach(f => { %>
+                <span class="badge bg-light text-dark border px-3 py-2">
+                  <%= f %>
+                </span>
+              <% }) %>
+            </div>
+          <% } else { %>
+            <p class="text-muted">No facilities mentioned.</p>
+          <% } %>
+
+          <!-- Admin Actions -->
+          <% if (isAdmin) { %>
+            <div class="mt-4 d-flex gap-2">
+              <a href="/listings/<%= listing._id %>/edit" class="btn btn-warning">
+                <i class="bi bi-pencil-square"></i> Edit
+              </a>
+
+              <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger" type="submit">
+                  <i class="bi bi-trash"></i> Delete
+                </button>
+              </form>
+            </div>
+          <% } %>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ================= RIGHT SIDE : BOOKING FORM ================= -->
+    <div class="col-lg-4">
+
+      <div class="card shadow-sm border-0 rounded-4 p-4">
+
+        <h4 class="fw-bold mb-3">Book This Package</h4>
+
+        <% if (!listing.isActive) { %>
+          <div class="alert alert-danger">
+            This package is not available right now.
+          </div>
+        <% } else { %>
+
+          <form action="/listings/<%= listing._id %>/bookings" method="POST">
+
+            <div class="mb-2">
+              <label class="form-label">Name</label>
+              <input
+                type="text"
+                name="booking[customerName]"
+                class="form-control"
+                required
+              >
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Phone</label>
+              <input
+                type="text"
+                name="booking[phone]"
+                class="form-control"
+                required
+              >
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Persons</label>
+              <input
+                type="number"
+                name="booking[persons]"
+                min="1"
+                class="form-control"
+                required
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Travel Date</label>
+              <input
+                type="date"
+                name="booking[travelDate]"
+                class="form-control"
+                required
+              >
+            </div>
+
+            <button class="btn btn-primary w-100">
+              Book Now
+            </button>
+
+          </form>
+
+        <% } %>
+
+        <hr>
+
+        <a href="/listings" class="btn btn-outline-secondary w-100">
+          <i class="bi bi-arrow-left"></i> Back to Listings
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

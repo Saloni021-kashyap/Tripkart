@@ -1,0 +1,106 @@
+<% layout("/layouts/boilerplate") %>
+
+<h2 class="mb-4 offset-4 mt-2">All Bookings (Admin)</h2>
+
+
+<% if (allBookings.length === 0) { %>
+  <p class="text-muted text-center mt-4">
+    No bookings found.
+  </p>
+<% } else { %>
+
+<table class="table table-bordered table-striped align-middle">
+  <!-- table head + body -->
+</table>
+
+<% } %>
+
+
+<table class="table table-bordered table-striped align-middle mb-3">
+  <thead class="table-dark">
+    <tr>
+      <th>Package</th>
+      <th>Customer</th>
+      <th>Phone</th>
+      <th>Persons</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% for (let b of allBookings) { %>
+      <tr>
+        <td>
+          <a href="/listings/<%= b.listing._id %>">
+            <%= b.listing.title %>
+          </a>
+        </td>
+
+        <td><%= b.customerName %></td>
+        <td><%= b.phone %></td>
+        <td><%= b.persons %></td>
+        <td><%= new Date(b.travelDate).toDateString() %></td>
+
+        <!-- 📌 STATUS BADGE -->
+        <td>
+          <span class="badge 
+            <%= b.status === 'confirmed' ? 'bg-success'
+              : b.status === 'pending' ? 'bg-warning'
+              : b.status === 'cancel_requested' ? 'bg-info'
+              : 'bg-danger' %>">
+            <%= b.status.replace('_', ' ') %>
+          </span>
+        </td>
+
+   
+
+
+        <!-- ⚙️ ADMIN ACTIONS -->
+        <td class="d-flex gap-2 flex-wrap">
+
+          <!-- ✅ CONFIRM (only if pending) -->
+          <% if (b.status === 'pending') { %>
+            <form action="/bookings/<%= b._id %>/confirm?_method=PUT" method="POST">
+              <button class="btn btn-sm btn-success">
+                Confirm
+              </button>
+            </form>
+          <% } %>
+
+
+
+          <!-- ❌ CANCEL (pending OR cancel_requested) -->
+          <% if (b.status === 'pending' || b.status === 'cancel_requested') { %>
+            <form action="/bookings/<%= b._id %>/cancel?_method=PUT" method="POST">
+              <button class="btn btn-sm btn-danger"
+                      onclick="return confirm('Cancel this booking?');">
+                Cancel
+              </button>
+            </form>
+          <% } %>
+
+          <td>
+  <% if (b.cancelReason) { %>
+    <small class="text-muted"><%= b.cancelReason %></small>
+  <% } else { %>
+    <span class="text-muted">—</span>
+  <% } %>
+</td>
+
+
+          <!-- ℹ️ NO ACTION -->
+          <% if (b.status === 'confirmed') { %>
+            <span class="text-muted">Confirmed</span>
+          <% } %>
+
+          <% if (b.status === 'cancelled') { %>
+            <span class="text-muted">Cancelled</span>
+          <% } %>
+
+        </td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
