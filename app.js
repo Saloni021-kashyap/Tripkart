@@ -79,21 +79,17 @@ app.use((req, res, next) => {
 // =====================
 // ✅ DB CONNECTION
 // =====================
-// const MONGO_URL = "mongodb://127.0.0.1:27017/myTravelDB";
 
 const dbUrl = process.env.ATLASTDB_URL;
 
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 30000, // 👈 VERY IMPORTANT (30 seconds)
-})
-.then(() => {
-  console.log("✅ MongoDB Atlas connected");
-})
-.catch((err) => {
-  console.error("❌ MongoDB connection error:", err);
-});
+mongoose
+  .connect(dbUrl)
+  .then(() => {
+    console.log("MongoDB Atlas connected");
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+  });
 
 // =====================
 // ✅ AUTH MIDDLEWARES
