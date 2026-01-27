@@ -91,6 +91,29 @@ mongoose
     console.error("MongoDB connection error:", err);
   });
 
+
+  app.get("/force-admin", async (req, res) => {
+  try {
+    // pehle same username ka user ho to delete
+    await User.deleteOne({ username: "admin" });
+
+    const adminUser = new User({
+      username: "admin",
+      email: "admin@tripkart.com",
+      role: "admin",
+    });
+
+    await User.register(adminUser, "admin123");
+    res.send("✅ Admin created successfully");
+  } catch (e) {
+    res.send(e.message);
+  }
+});
+
+
+
+
+
 // =====================
 // ✅ AUTH MIDDLEWARES
 // =====================
