@@ -71,10 +71,19 @@ app.use((req, res, next) => {
 // =====================
 // 🗄️ DATABASE
 // =====================
+const dbUrl = process.env.ATLASDB_URL;
+
 mongoose
-  .connect(process.env.ATLASDB_URL)
-  .then(() => console.log("MongoDB Atlas connected"))
-  .catch((err) => console.error(err));
+  .connect(dbUrl, {
+    serverSelectionTimeoutMS: 30000, // 30 sec wait
+  })
+  .then(() => {
+    console.log("MongoDB Atlas connected");
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+  });
+
 
 // =====================
 // 🚏 ROUTES

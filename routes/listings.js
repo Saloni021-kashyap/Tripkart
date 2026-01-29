@@ -45,34 +45,26 @@ router.get("/new", isAdmin, (req, res) => {
 router.post(
   "/",
   isAdmin,
-  upload.array("listing[image]", 5),
+  upload.single("listing[image]"),
   wrapAsync(async (req, res) => {
-    //  Create listing from form data
     const newListing = new Listing(req.body.listing);
 
-    //  SAFETY: Save images only if files exist
-    if (req.files && req.files.length > 0) {
-      newListing.images = req.files.map((file) => ({
-        url: file.path,       // Cloudinary secure URL
-        filename: file.filename,
-      }));
+    // 🔥 CLOUDINARY URL SAVE
+    if (req.file) {
+      newListing.images = [
+        {
+          url: req.file.path,        // Cloudinary URL
+          filename: req.file.filename
+        }
+      ];
     }
 
-    // facilities: string → array (comma separated)
-    if (typeof newListing.facilities === "string") {
-      newListing.facilities = newListing.facilities
-        .split(",")
-        .map((f) => f.trim());
-    }
-
-    // Save to DB
     await newListing.save();
-
-    // Success response
     req.flash("success", "New Listing Added");
     res.redirect("/listings");
   })
 );
+
 
 
 // EDIT LISTING FORM

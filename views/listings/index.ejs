@@ -1,61 +1,72 @@
 <% layout("/layouts/boilerplate") %>
 
-<!-- <h4 class="mb-3 offset-3">Explore From Sacred Yatras to Thrilling Adventures
-</h4> -->
 <h2 class="fw-bold text-center">Explore</h2>
 <p class="explore-tagline text-center">
   Journeys of Faith Experiences of Adventure.
 </p>
 
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
 
-
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-3">
   <% for (let listing of allListings) { %>
-
     <div class="col">
-      <div class="card h-100 shadow-sm">
+      <div class="card listing-card h-100 shadow-sm">
 
-        <a href="/listings/<%= listing._id %>">
-          <img src="<%= listing.image %>" class="card-img-top" alt="listing_image" style="height: 200px; object-fit: cover;">
+        <!-- IMAGE -->
+        <a href="/listings/<%= listing._id %>" class="listing-img-wrapper">
+          <% if (listing.images && listing.images.length > 0) { %>
+            <img
+              src="<%= listing.images[0].url %>"
+              alt="listing image"
+              class="listing-img"
+            />
+          <% } else if (listing.image) { %>
+            <img
+              src="<%= listing.image %>"
+              alt="listing image"
+              class="listing-img"
+            />
+          <% } else { %>
+            <img
+              src="/images/default.jpg"
+              alt="default image"
+              class="listing-img"
+            />
+          <% } %>
         </a>
 
-        <div class="card-body">
+        <!-- CARD BODY -->
+        <div class="card-body d-flex flex-column">
 
-          <!-- ✅ Title -->
           <h5 class="card-title fw-bold mb-1">
             <%= listing.title %>
           </h5>
 
-          <!-- ✅ Destination -->
-          <p class="text-muted mb-2">
+          <p class="text-muted mb-2 small">
             <i class="bi bi-geo-alt-fill"></i> <%= listing.destination %>
           </p>
 
-          <!-- ✅ Travel Mode -->
-          <span class="badge rounded-pill bg-info text-dark mb-2">
+          <span class="badge rounded-pill bg-info text-dark align-self-start mb-2">
             <i class="bi bi-truck-front-fill"></i> <%= listing.travelMode %>
           </span>
 
-          <!-- ✅ Seats Left -->
-          <p class="mt-2 mb-2">
-            <span class="badge bg-success">
-              Seats Left: <%= listing.availableSeats %> / <%= listing.totalSeats %>
-            </span>
-          </p>
+          <span class="badge bg-success align-self-start mb-2">
+            Seats Left: <%= listing.availableSeats %> / <%= listing.totalSeats %>
+          </span>
 
-          <!-- ✅ Price -->
-          <p class="card-text fw-semibold">
+          <p class="fw-semibold fs-5 mt-auto mb-2">
             ₹ <%= listing.price %>
           </p>
 
-          <!-- ✅ Button -->
-          <a href="/listings/<%= listing._id %>" class="btn btn-sm btn-primary">
+          <a
+            href="/listings/<%= listing._id %>"
+            class="btn btn-primary btn-sm w-100"
+          >
             View Details
           </a>
 
         </div>
       </div>
     </div>
-
   <% } %>
+
 </div>
