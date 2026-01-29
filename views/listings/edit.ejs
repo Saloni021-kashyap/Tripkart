@@ -26,9 +26,16 @@
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Image Upload</label>
-        <input id="image" type="file" name="listing[image]" value="<%= listing.image %>" class="form-control">
+      <label for="image" class="form-label">Upload New Images (optional)</label>
+      <input
+      id="image"
+      type="file"
+      name="listing[image]"
+      class="form-control"
+      multiple
+      accept="image/*">
       </div>
+
 
       <div class="mb-3">
         <label for="price" class="form-label">Price (₹)</label>
@@ -87,7 +94,6 @@
       <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary ms-2">Back</a>
 
     </form>
-
   </div>
 </div>
  <script src="/js/script.js"></script>

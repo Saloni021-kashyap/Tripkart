@@ -24,10 +24,11 @@
     <div class="valid-feedback">please enter short description</div>
   </div>
 
-  <div class="mb-3">
-    <label for="image" class="form-label">Image Upload</label>
-    <input type="file" id="image" name="listing[image]" class="form-control" placeholder="Paste image link">
-  </div>
+ <div class="mb-3">
+  <label for="image" class="form-label">Image Upload</label>
+  <input type="file" id="image" name="listing[image]" class="form-control" multiple required accept="image/*">
+</div>
+
 
   <div class="mb-3">
     <label for="price" class="form-label">Price (₹)</label>

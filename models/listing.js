@@ -1,94 +1,92 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const ImageSchema = new Schema({
+  url: String,
+  filename: String,
+});
+
 const listingSchema = new Schema(
   {
     title: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
 
     destination: {
       type: String,
-      required: true
+      required: true,
     },
 
     description: {
       type: String,
-      required: true
+      required: true,
     },
 
-image: {
-  type: String,
-  default:
-    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
-  set: (v) =>
-    v === ""
-      ? "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
-      : v,
-},
-
- 
-
+    // ✅ CLOUDINARY IMAGES
+    images: [
+      {
+        url: String,
+        filename: String,
+      },
+    ],
 
     price: {
       type: Number,
       required: true,
-      min: 0
+      min: 0,
     },
 
- 
     startLocation: {
       type: String,
-      required: true
+      required: true,
     },
 
     endLocation: {
       type: String,
-      required: true
+      required: true,
     },
 
     travelMode: {
       type: String,
       enum: ["Bus", "Train", "Flight"],
-      default: "Bus"
-    },
-    category: {
-    type: String,
-    enum: ["Pilgrimage", "Winter", "Beach", "Adventure", "City", "Family"],
-    default: "Pilgrimage"
+      default: "Bus",
     },
 
+    category: {
+      type: String,
+      enum: ["Pilgrimage", "Winter", "Beach", "Adventure", "City", "Family"],
+      default: "Pilgrimage",
+    },
 
     facilities: {
       type: [String],
-      default: []
+      default: [],
     },
 
     totalSeats: {
       type: Number,
       required: true,
-      min: 1
+      min: 1,
     },
 
     availableSeats: {
       type: Number,
-      required: true
+      required: true,
     },
 
     isActive: {
       type: Boolean,
-      default: true
+      default: true,
     },
 
     country: {
       type: String,
-      default: "India"
-    }
+      default: "India",
+    },
   },
   { timestamps: true }
 );
 
-const Listing = mongoose.model("Listing", listingSchema);
-module.exports = Listing;
+module.exports = mongoose.model("Listing", listingSchema);
