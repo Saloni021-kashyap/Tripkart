@@ -1,6 +1,7 @@
 require("dotenv").config();
 
-const express = require("express");
+console.log("ENV CHECK ATLASDB_URL =", process.env.ATLASDB_URL);
+
 const app = express();
 const mongoose = require("mongoose");
 const path = require("path");
