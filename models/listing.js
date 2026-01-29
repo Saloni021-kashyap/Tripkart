@@ -24,7 +24,7 @@ const listingSchema = new Schema(
       required: true,
     },
 
-    // ✅ CLOUDINARY IMAGES
+   
     images: [
       {
         url: String,

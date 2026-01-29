@@ -17,11 +17,17 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const ExpressError = require("./utils/ExpressError");
 
+
+
+
+
 // =====================
-// MIDDLEWARE SETUP
+
+
+// 🔧 BASIC MIDDLEWARE
 // =====================
-app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.engine("ejs", ejsMate);
@@ -29,19 +35,20 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // =====================
-// SESSION + FLASH
+// 🔐 SESSION + FLASH
 // =====================
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || "fallbacksecret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   })
 );
+
 app.use(flash());
 
 // =====================
-// PASSPORT
+// 🔑 PASSPORT CONFIG
 // =====================
 app.use(passport.initialize());
 app.use(passport.session());
@@ -56,26 +63,21 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
-
-  // auth related
   res.locals.currUser = req.user || null;
-  res.locals.isAdmin =
-    req.isAuthenticated() && req.user.role === "admin";
-
+  res.locals.isAdmin = req.user && req.user.role === "admin";
   next();
 });
 
-
 // =====================
-// DATABASE
+// 🗄️ DATABASE
 // =====================
 mongoose
-  .connect(process.env.ATLASTDB_URL)
+  .connect(process.env.ATLASDB_URL)
   .then(() => console.log("MongoDB Atlas connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.error(err));
 
 // =====================
-// ROUTES
+// 🚏 ROUTES
 // =====================
 const listingRoutes = require("./routes/listings");
 const bookingRoutes = require("./routes/booking");
@@ -88,20 +90,18 @@ app.use("/", userRoutes);
 app.use("/", adminRoutes);
 
 // =====================
-// ROOT
+// 🏠 ROOT
 // =====================
 app.get("/", (req, res) => {
   res.redirect("/listings");
 });
 
 // =====================
-// ❌ 404 NOT FOUND (SAFE FOR NODE 22)
+// ❌ 404 HANDLER (ALWAYS LAST ROUTE)
 // =====================
 app.use((req, res, next) => {
   next(new ExpressError("Page Not Found", 404));
 });
-
-
 
 // =====================
 // ⚠️ GLOBAL ERROR HANDLER
@@ -111,14 +111,8 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error", { message });
 });
 
-
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message = "Something went wrong!" } = err;
-  res.status(statusCode).render("error.ejs", { err });
-});
-
 // =====================
-// SERVER
+// 🚀 SERVER
 // =====================
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
