@@ -3,7 +3,21 @@ const router = express.Router();
 
 const multer = require("multer");
 const { storage, cloudinary } = require("../cloudConfig");
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype === "image/jpeg" ||
+      file.mimetype === "image/png" ||
+      file.mimetype === "image/jpg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(new Error("Only JPG/PNG images allowed"), false);
+    }
+  },
+});
+
 
 const Listing = require("../models/listing");
 const wrapAsync = require("../utils/wrapAsync");

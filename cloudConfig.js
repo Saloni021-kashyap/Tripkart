@@ -9,10 +9,9 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: {
+  params: async (req, file) => ({
     folder: "tripkart/listings",
-    allowed_formats: ["jpg", "png", "jpeg"],
-  },
+  }),
 });
 
 module.exports = { cloudinary, storage };
