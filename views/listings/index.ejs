@@ -14,11 +14,11 @@
         <!-- IMAGE -->
         <a href="/listings/<%= listing._id %>" class="listing-img-wrapper">
           <% if (listing.images && listing.images.length > 0) { %>
-            <img
-              src="<%= listing.images[0].url %>"
-              alt="listing image"
-              class="listing-img"
-            />
+            <img 
+            src="<%= listing.images?.[0]?.url || '/images/default.jpg' %>" 
+            class="card-img-top"
+              >
+
           <% } else if (listing.image) { %>
             <img
               src="<%= listing.image %>"

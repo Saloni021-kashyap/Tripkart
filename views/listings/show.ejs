@@ -10,12 +10,21 @@
       <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
 
         <!-- Image -->
-        <img
-          src="<%= listing.image %>"
-          class="img-fluid"
-          style="height: 320px; object-fit: cover;"
-          alt="listing_image"
+        <% if (listing.images && listing.images.length > 0) { %>
+      <img 
+       src="<%= listing.images[0].url %>" 
+       class="img-fluid"
+       style="height:320px; object-fit:cover;"
+       alt="listing_image"
         >
+    <% } else { %>
+  <img 
+    src="/images/default.jpg" 
+    class="img-fluid"
+    alt="default_image"
+  >
+    <% } %>
+
 
         <div class="card-body p-4">
 
