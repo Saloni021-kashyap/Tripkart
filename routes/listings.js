@@ -9,14 +9,16 @@ const upload = multer({
     if (
       file.mimetype === "image/jpeg" ||
       file.mimetype === "image/png" ||
-      file.mimetype === "image/jpg"
+      file.mimetype === "image/jpg" ||
+      file.mimetype === "image/webp"
     ) {
       cb(null, true);
     } else {
-      cb(new Error("Only JPG/PNG images allowed"), false);
+      cb(new Error("Only JPG/PNG/WEBP images allowed"), false);
     }
   },
 });
+
 
 
 const Listing = require("../models/listing");
