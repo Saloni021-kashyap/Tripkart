@@ -46,19 +46,21 @@ router.get("/new", isAdmin, (req, res) => {
 router.post(
   "/",
   isAdmin,
-  upload.array("listing[image]", 5),
+  upload.single("listing[image]"),
   wrapAsync(async (req, res) => {
     const listing = new Listing(req.body.listing);
 
-    if (req.files && req.files.length > 0) {
-      listing.images = req.files.map(file => ({
-        url: file.path,
-        filename: file.filename,
-      }));
+    if (req.file) {
+      listing.images = [
+        {
+          url: req.file.path,
+          filename: req.file.filename,
+        },
+      ];
     }
 
     await listing.save();
-    req.flash("success", "New Listing Added Successfully");
+    req.flash("success", "New package added");
     res.redirect("/listings");
   })
 );

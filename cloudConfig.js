@@ -11,7 +11,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "tripkart/listings",
-    allowed_Formats: ["png", "jpg", "jpeg"],
+    allowed_formats: ["jpg", "png", "jpeg"],
   },
 });
 
