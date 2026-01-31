@@ -1,6 +1,5 @@
-require("dotenv").config();
+require("dotenv").config(); 
 
-// console.log("ENV CHECK ATLASDB_URL =", process.env.ATLASDB_URL);
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -18,11 +17,8 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const ExpressError = require("./utils/ExpressError");
 
+console.log("Cloud name:", process.env.CLOUD_NAME);
 
-
-
-
-// =====================
 
 
 // 🔧 BASIC MIDDLEWARE
@@ -36,7 +32,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // =====================
-// 🔐 SESSION + FLASH
+//  SESSION + FLASH
 // =====================
 app.use(
   session({
@@ -75,15 +71,18 @@ app.use((req, res, next) => {
 
 
 
+
+
 const dbUrl = process.env.ATLASDB_URL;
 
 mongoose.connect(dbUrl)
   .then(() => {
-    console.log("MongoDB Atlas connected");
+    console.log("MongoDB connected");
   })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
+  .catch(err => {
+    console.error("Mongo error:", err);
   });
+
 
 
 // =====================
