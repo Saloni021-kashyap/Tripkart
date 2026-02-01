@@ -1,4 +1,4 @@
-require("dotenv").config(); 
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
@@ -15,12 +15,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
 const User = require("./models/user");
-const ExpressError = require("./utils/ExpressError");
 
-console.log("Cloud name:", process.env.CLOUD_NAME);
-
-
-
+// =====================
 // 🔧 BASIC MIDDLEWARE
 // =====================
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +28,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // =====================
-//  SESSION + FLASH
+// 🧾 SESSION + FLASH
 // =====================
 app.use(
   session({
@@ -68,22 +64,16 @@ app.use((req, res, next) => {
 // =====================
 // 🗄️ DATABASE
 // =====================
-
-
-
-
-
 const dbUrl = process.env.ATLASDB_URL;
 
-mongoose.connect(dbUrl)
+mongoose
+  .connect(dbUrl)
   .then(() => {
     console.log("MongoDB connected");
   })
   .catch(err => {
-    console.error("Mongo error:", err);
+    console.error("MongoDB connection error:", err);
   });
-
-
 
 // =====================
 // 🚏 ROUTES
@@ -106,18 +96,18 @@ app.get("/", (req, res) => {
 });
 
 // =====================
-// ❌ 404 HANDLER (ALWAYS LAST ROUTE)
+// ❌ 404 HANDLER
 // =====================
-app.use((req, res, next) => {
-  next(new ExpressError("Page Not Found", 404));
+app.use((req, res) => {
+  res.status(404).send("Page Not Found");
 });
 
 // =====================
-// ⚠️ GLOBAL ERROR HANDLER
+// ⚠️ GLOBAL ERROR HANDLER (FINAL FIX)
 // =====================
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message = "Something went wrong" } = err;
-  res.status(statusCode).render("error", { message });
+  console.error("GLOBAL ERROR 👉", err);
+  res.status(500).send("Server error. Check logs.");
 });
 
 // =====================
