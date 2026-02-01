@@ -13,18 +13,21 @@
 
         <!-- IMAGE -->
         <a href="/listings/<%= listing._id %>" class="listing-img-wrapper">
-      <% if (listing.images && listing.images.length > 0) { %>
-      <img
+   <% if (
+  listing.images &&
+  Array.isArray(listing.images) &&
+  listing.images.length > 0 &&
+  listing.images[0].url
+) { %>
+  <img
     src="<%= listing.images[0].url %>"
     alt="<%= listing.title %>"
     class="listing-img"
-      />
-      <% } else { %>
-  <img
-    src="/images/placeholder.jpg"
-    alt="No image"
-    class="listing-img"
   />
+<% } else { %>
+  <div class="no-image">
+    <p>No image</p>
+  </div>
 <% } %>
 
         </a>

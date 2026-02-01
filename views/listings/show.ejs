@@ -10,15 +10,21 @@
       <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
 
         <!-- Image -->
-    <% if (listing.images && listing.images.length > 0 && listing.images[0].url) { %>
-    <img
-        src="<%= listing.images[0].url %>"
+  <% if (
+  listing.images &&
+  Array.isArray(listing.images) &&
+  listing.images.length > 0 &&
+  listing.images[0].url
+) { %>
+  <img
+    src="<%= listing.images[0].url %>"
     alt="<%= listing.title %>"
-      class="show-img"
-    />
-  <% } else { %>
+    class="show-img"
+  />
+<% } else { %>
   <p>No image available</p>
-  <% } %>
+<% } %>
+
 
         <div class="card-body p-4">
 
