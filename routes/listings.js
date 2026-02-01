@@ -44,8 +44,9 @@ router.get(
       };
     }
 
-    const allListings = await Listing.find(query).sort({ createdAt: -1 });
-    res.render("listings/index.ejs", { allListings, search });
+  const allListings = await Listing.find(query).sort({ createdAt: -1 });
+console.log("LISTINGS COUNT:", allListings.length);
+
   })
 );
 
