@@ -7,12 +7,18 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+// 🔍 one-time debug (temporary)
+console.log("Cloudinary ENV check:", {
+  name: !!process.env.CLOUDINARY_CLOUD_NAME,
+  key: !!process.env.CLOUDINARY_API_KEY,
+  secret: !!process.env.CLOUDINARY_API_SECRET,
+});
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: async (req, file) => ({
+  params: {
     folder: "tripkart/listings",
-  }),
+  },
 });
 
 module.exports = { cloudinary, storage };

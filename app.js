@@ -16,9 +16,7 @@ const LocalStrategy = require("passport-local");
 
 const User = require("./models/user");
 
-// =====================
-// 🔧 BASIC MIDDLEWARE
-// =====================
+// BASIC MIDDLEWARE
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -27,9 +25,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// =====================
-// 🧾 SESSION + FLASH
-// =====================
+// SESSION + FLASH
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "fallbacksecret",
@@ -40,9 +36,7 @@ app.use(
 
 app.use(flash());
 
-// =====================
-// 🔑 PASSPORT CONFIG
-// =====================
+// PASSPORT
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -50,9 +44,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// =====================
-// 🌍 GLOBAL LOCALS
-// =====================
+// GLOBAL LOCALS
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -61,58 +53,35 @@ app.use((req, res, next) => {
   next();
 });
 
-// =====================
-// 🗄️ DATABASE
-// =====================
-const dbUrl = process.env.ATLASDB_URL;
-
+// DATABASE
 mongoose
-  .connect(dbUrl)
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch(err => {
-    console.error("MongoDB connection error:", err);
-  });
+  .connect(process.env.ATLASDB_URL)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("MongoDB connection error:", err));
 
-// =====================
-// 🚏 ROUTES
-// =====================
-const listingRoutes = require("./routes/listings");
-const bookingRoutes = require("./routes/booking");
-const userRoutes = require("./routes/users");
-const adminRoutes = require("./routes/admin");
+// ROUTES
+app.use("/listings", require("./routes/listings"));
+app.use("/bookings", require("./routes/booking"));
+app.use("/", require("./routes/users"));
+app.use("/", require("./routes/admin"));
 
-app.use("/listings", listingRoutes);
-app.use("/bookings", bookingRoutes);
-app.use("/", userRoutes);
-app.use("/", adminRoutes);
-
-// =====================
-// 🏠 ROOT
-// =====================
+// ROOT
 app.get("/", (req, res) => {
   res.redirect("/listings");
 });
 
-// =====================
-// ❌ 404 HANDLER
-// =====================
+// 404
 app.use((req, res) => {
   res.status(404).send("Page Not Found");
 });
 
-// =====================
-// ⚠️ GLOBAL ERROR HANDLER (FINAL FIX)
-// =====================
+// GLOBAL ERROR HANDLER (SAFE)
 app.use((err, req, res, next) => {
   console.error("GLOBAL ERROR 👉", err);
   res.status(500).send("Server error. Check logs.");
 });
 
-// =====================
-// 🚀 SERVER
-// =====================
+// SERVER
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
