@@ -26,11 +26,10 @@ const wrapAsync = require("../utils/wrapAsync");
 const { isLoggedIn, isAdmin } = require("../middleware");
 
 // ===============================
-// SHOW ALL LISTINGS
+// SHOW ALL LISTINGS (FINAL SAFE VERSION)
 // ===============================
-router.get(
-  "/",
-  wrapAsync(async (req, res) => {
+router.get("/", async (req, res) => {
+  try {
     const { search } = req.query;
     let query = {};
 
@@ -47,10 +46,18 @@ router.get(
     const allListings = await Listing.find(query).sort({ createdAt: -1 });
     console.log("LISTINGS COUNT:", allListings.length);
 
-    // 🔴 YE LINE MISSING THI (MOST IMPORTANT)
-    res.render("listings/index.ejs", { allListings, search });
-  })
-);
+    return res.render("listings/index.ejs", {
+      allListings,
+      search: search || "",
+    });
+  } catch (err) {
+    console.error("LISTINGS PAGE ERROR:", err.message);
+
+    // 🔴 fallback – taaki site crash na ho
+    return res.status(500).send("Listings page error");
+  }
+});
+
 
 // ===============================
 // NEW LISTING FORM
