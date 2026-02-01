@@ -44,9 +44,11 @@ router.get(
       };
     }
 
-  const allListings = await Listing.find(query).sort({ createdAt: -1 });
-console.log("LISTINGS COUNT:", allListings.length);
+    const allListings = await Listing.find(query).sort({ createdAt: -1 });
+    console.log("LISTINGS COUNT:", allListings.length);
 
+    // 🔴 YE LINE MISSING THI (MOST IMPORTANT)
+    res.render("listings/index.ejs", { allListings, search });
   })
 );
 
