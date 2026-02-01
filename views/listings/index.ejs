@@ -13,25 +13,20 @@
 
         <!-- IMAGE -->
         <a href="/listings/<%= listing._id %>" class="listing-img-wrapper">
-          <% if (listing.images && listing.images.length > 0) { %>
-            <img 
-            src="<%= listing.images?.[0]?.url || '/images/default.jpg' %>" 
-            class="card-img-top"
-              >
+      <% if (listing.images && listing.images.length > 0) { %>
+      <img
+    src="<%= listing.images[0].url %>"
+    alt="<%= listing.title %>"
+    class="listing-img"
+      />
+      <% } else { %>
+  <img
+    src="/images/placeholder.jpg"
+    alt="No image"
+    class="listing-img"
+  />
+<% } %>
 
-          <% } else if (listing.image) { %>
-            <img
-              src="<%= listing.image %>"
-              alt="listing image"
-              class="listing-img"
-            />
-          <% } else { %>
-            <img
-              src="/images/default.jpg"
-              alt="default image"
-              class="listing-img"
-            />
-          <% } %>
         </a>
 
         <!-- CARD BODY -->
